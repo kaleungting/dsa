@@ -24,35 +24,31 @@ class maxHeap {
     if (this.values.length === 1) return this.values.pop(); //if there is only one val in heap, then just return it
     if (this.values.length === 0) return null; //if there's none to remove, just return null
     let max = this.values[0]; //
-    this.siftDown(0); //start sifting from the top to the bottom
+    this.values[0] = this.values.pop();
+
+    this.sinkDown(0); //start sifting from the top to the bottom
     return max;
   }
 
-  siftDown(idx) {
-    let lastIdx = this.values.length - 1;
-    let lastEle = this.values[lastIdx];
-    this.values[idx] = lastEle;
+  sinkDown(index) {
+    let left = 2 * index + 1,
+      right = 2 * index + 2,
+      largest = index;
+    const length = this.values.length;
 
-    let leftChildIdx = 2 * idx + 1;
-    let rightChildIdx = 2 * idx + 2;
-    let leftChild = this.values[leftChildIdx];
-    let rightChild = this.values[rightChildIdx];
-    if (leftChild === undefined) leftChild = -Infinity;
-    if (rightChild === undefined) rightChild = -Infinity;
-
-    let swapIdx;
-    if (this.values[idx] > leftChild && this.values[idx] > rightChild) return; //do nothing if current is already bigger than both of it's children
-    if (leftChild < rightChild) {
-      swapIdx = rightChildIdx; //set swapIdx to whichever is bigger, bc that's what we want to swap with. The bigger of the children
-    } else {
-      swapIdx = leftChildIdx;
+    // if left child is greater than parent
+    if (left <= length && this.values[left] > this.values[largest]) {
+      largest = left;
     }
-    [this.values[idx], this.values[swapIdx]] = [
-      this.values[swapIdx],
-      this.values[idx],
-    ]; //swap with the bigger of the two children
-
-    this.siftDown(swapIdx); //continue sifting down, this time, the idx is no longer at the top but the current idx
+    // compare to see if right child is bigger than new Largest
+    if (right <= length && this.values[right] > this.values[largest]) {
+      largest = right;
+    }
+    // swap
+    if (largest !== index) {
+      [this.values[largest], this.values[index]] = [this.values[index],this.values[largest]];
+      this.sinkDown(largest);
+    }
   }
 }
 

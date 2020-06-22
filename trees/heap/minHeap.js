@@ -24,13 +24,34 @@ class minHeap {
     if (this.values.length === 1) return this.values.pop(); //if there is only one val in heap, then just return it
     if (this.values.length === 0) return null; //if there's none to remove, just return null
     let min = this.values[0]; //
-    this.siftDown(0); //start sifting from the top to the bottom
+    this.values[0] = this.values.pop();
+
+    this.sinkDown(0); //start sifting from the top to the bottom
     return min;
   }
 
-  siftDown(idx) {
-    let lastIdx = this.values.length - 1;
-    let lastEle = this.values[lastIdx];
+  sinkDown(index) {
+    let left = 2 * index + 1;
+    let right = 2 * index + 2;
+    let smallest = index;
+    const length = this.values.length;
+
+    // compare to see if left child is smaller
+    if (left <= length && this.values[left] < this.values[smallest]) {
+      smallest = left;
+    }
+    // compare to the new smallest, if it's smaller then replace
+    if (right <= length && this.values[right] < this.values[smallest]) {
+      smallest = right;
+    }
+    // swap
+    if (smallest !== index) {
+      [this.values[smallest], this.values[index]] = [
+        this.values[index],
+        this.values[smallest],
+      ];
+      this.sinkDown(smallest);
+    }
   }
 }
 
@@ -43,7 +64,22 @@ heap.insert(60);
 // heap.insert(12);
 // heap.insert(8);
 // heap.insert(29);
-console.log(heap);
+// console.log(heap);
+// console.log(heap.deleteMin());
+// console.log(heap);
 //add to the end of arr
 //determine parent Math.floor((n-1) / 2)
 //compare to parent to see if
+
+function heapSort(array) {
+  let heap = new minHeap();
+  array.forEach((num) => heap.insert(num));
+  let sorted = [];
+  while (heap.values.length > 1) {
+    sorted.push(heap.deleteMin());
+  }
+
+  return sorted;
+}
+
+console.log(heapSort([3, 1, 2, 5, 7, 8, 4]));
