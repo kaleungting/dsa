@@ -1,0 +1,21 @@
+vertex - nodes
+edges - connection b/t nodes
+
+undirected graphs - all edges/connections are two way (Facebook)
+directed graphs - could be single direction for edges (Instagram)
+
+weighted graph - edges have value (magnitude)
+unweighted graph - edges don't have value
+
+google maps - weighted, directed graphs
+
+
+adjacency list 
++ can take up less space (in sparse graphs)
++ faster to iterate over all edges
+- can be slower to lookup specific edge (possible N)
+
+adjacency matrix
+- takes up more space (in sparse graphs)
+- slower to iterate over all edges
++ faster to lookup specific edge (Constant)

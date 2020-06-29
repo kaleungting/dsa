@@ -38,3 +38,22 @@ function isBoomerang(arr) {
   }
   return true;
 }
+
+// 849. Maximize Distance to Closest Person
+
+
+// ugly Number
+//ugly numbers' prime factors are 2,3,5
+
+//8 --> true 2*2*2
+//14 --> false 2*7
+
+function uglyNumber(num){
+  let ugly = new Set([2,3,5]);
+
+  for (let i = 2; i < num; i++){
+    if (num % i === 0 && !ugly.has(i)) return false;
+  }
+  return true;
+
+}
